@@ -6,15 +6,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSpinner;
 import javax.swing.BoxLayout;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.JTextArea;
 
 import javax.swing.border.EtchedBorder;
 import javax.swing.SpinnerNumberModel;
@@ -26,26 +25,25 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Dimension;
-import javax.swing.JTextArea;
-import javax.swing.DropMode;
-import javax.swing.JEditorPane;
+import java.awt.event.ActionListener;
 
-public class AlarmWindow extends JFrame {
+public class AlarmWindow extends JFrame{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField txtPlayerName;
-	private JTextField txtFileName;
-	private JTextField textField;
-	private JTextField textField_1;
+	JPanel contentPane;
+	public JTextField txtFilePath;
+	public JTextField txtAppPath;
+	public JButton btnBrowse;
+	public JButton btnBrowse_1;
+	JFileChooser jfc= new JFileChooser("C:/Program Files");
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					try {
+					/*try {
 			            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 			            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
 			            //UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
@@ -58,7 +56,7 @@ public class AlarmWindow extends JFrame {
 			            e.printStackTrace();
 			        } catch (ClassNotFoundException e) {
 			            e.printStackTrace();
-			        }
+			        }*/
 			        AlarmWindow frame = new AlarmWindow();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -72,12 +70,13 @@ public class AlarmWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public AlarmWindow() {
+		createGui();
+	}
+	public void createGui(){
 		setTitle("Alarm Clock v0.1");
-		setAlwaysOnTop(true);
-		//setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 465);
-		setMinimumSize(new Dimension(400,410));
+		setMinimumSize(new Dimension(400,465));
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
@@ -313,17 +312,20 @@ public class AlarmWindow extends JFrame {
 		
 		JLabel lblPlayFile = new JLabel("Play File");
 		
-		textField = new JTextField();
-		textField.setColumns(20);
+		txtFilePath = new JTextField();
+		txtFilePath.setColumns(20);
 		
-		JButton btnBrowse = new JButton("Browse");
+		btnBrowse = new JButton("Browse");
+		btnBrowse.setActionCommand("Browse");
 		
 		JLabel lblApplication = new JLabel("Application");
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(18);
+		txtAppPath = new JTextField();
+		txtAppPath.setColumns(18);
 		
-		JButton btnBrowse_1 = new JButton("Browse");
+		btnBrowse_1 = new JButton("Browse");
+		btnBrowse_1.setActionCommand("Browse_1");
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -333,13 +335,13 @@ public class AlarmWindow extends JFrame {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblPlayFile)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+							.addComponent(txtFilePath, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnBrowse))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblApplication)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+							.addComponent(txtAppPath, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnBrowse_1)))
 					.addContainerGap())
@@ -350,16 +352,39 @@ public class AlarmWindow extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPlayFile)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtFilePath, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnBrowse))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblApplication)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtAppPath, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnBrowse_1))
 					.addContainerGap(12, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		Panel_3.setLayout(gl_Panel_3);
 	}
+	/*public void actionPerformed(ActionEvent e){
+		if("Browse".equals(e.getActionCommand())){
+			int returnVal = jfc.showOpenDialog(AlarmWindow.this);
+			 if (returnVal == JFileChooser.APPROVE_OPTION) {
+		            File file = jfc.getSelectedFile();
+		            AlarmWindow.this.txtFilePath.setText(file.getAbsolutePath());
+			 }
+	       }
+	}*/
+	public void setListener(ActionListener  action){
+		btnBrowse.addActionListener(action);
+		btnBrowse_1.addActionListener(action);
+	}
+	
+	public void setText(String text, JTextArea txtarea){
+		txtarea.setText(text);
+	}
+	
+	public String getText(JTextArea txtarea){
+		return txtarea.getText();
+	}
+	
 }
+
