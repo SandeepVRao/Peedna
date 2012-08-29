@@ -17,6 +17,7 @@ public class AlarmClock {
 		AlarmWindow view = new AlarmWindow();
 		view.setVisible(true);
 		MainController controller = new MainController(view);
+		view.pack();
 	}
 	
 	
@@ -36,7 +37,7 @@ public class AlarmClock {
 			        	System.out.print("Illegal Access");
 			            e.printStackTrace();
 			        } catch (InstantiationException e) {
-			        	System.out.print("Cant start the look and feel");
+			        	System.out.print("Can't start the look and feel");
 			            e.printStackTrace();
 			        } catch (ClassNotFoundException e) {
 			        	System.out.println("GetSystemlookandFeel class does not exist in this version of JDK!!");
@@ -44,6 +45,7 @@ public class AlarmClock {
 			        }
 			       init();
 				} catch (Exception e) {
+					System.out.print("Something went wrong!!");
 					e.printStackTrace();
 				}
 			}
