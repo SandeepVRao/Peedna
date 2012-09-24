@@ -6,7 +6,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.peedna.controller.MainController;
+import org.peedna.model.Model;
 import org.peedna.ui.AlarmWindow;
+import org.peedna.ui.RunAlarm;
 /**
  * @author Sandeep
  *
@@ -14,9 +16,11 @@ import org.peedna.ui.AlarmWindow;
 public class AlarmClock {
 
 	private static void init(){
+		Model model=new Model();
 		AlarmWindow view = new AlarmWindow();
+		RunAlarm runng=new RunAlarm();
+		MainController controller = new MainController(view, model, runng);
 		view.setVisible(true);
-		MainController controller = new MainController(view);
 		view.pack();
 	}
 	
